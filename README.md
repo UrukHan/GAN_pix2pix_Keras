@@ -2,9 +2,9 @@
 GAN neural network. For converting images. Collected on Keras
 I trained this network on 16 photos in total. Therefore, we had to fit the model and run the generator of augmented images on the keras.
 
-GAN.py - a module in which the architecture of the GAN network is written, consisting of two neural networks. Discriminator and generator. Everything is collected in the "GAN" class. In this case, for processing 1024x1024 images. Also "GAN.train" and "GAN.generate_fake_samples" network training method.
+GAN.py - a module in which the architecture of the GAN network is written, consisting of two neural networks. Discriminator and generator. Everything is collected in the "GAN" class. In this case, for processing 512x512 images. Also "GAN.train" and "GAN.generate_fake_samples" network training method.
 
-PicLoad.py - a module that contains the "PICLOAD" class for viewing and loading images. In this class, you need to set the third-party parameter "basePath" indicating the path to the folder. the "load_img" method takes the path to the folder and the size of the images in this case, we make all the images 1024/1024 for our network.
+PicLoad.py - a module that contains the "PICLOAD" class for viewing and loading images. In this class, you need to set the third-party parameter "basePath" indicating the path to the folder. the "load_img" method takes the path to the folder and the size of the images in this case, we make all the images 512/512 for our network.
 There is also a "show_imeges" method for displaying three images on plot.
 
 ImageGeneratorTF.py - module for image augmentation. It is itself a generator. I prescribed it for our network so that it gave out two images. At the testing stage, the second image is just a copy of the first just to keep the format. at the testing stage, when generating a picture by the generator, the weights remain as they were. This generator is represented by the "IMAGEGENERATOR ()" class. It requires two parameters to be set from outside. this is the batch size and image resolution. imageGenerator.img_size = input_shape
