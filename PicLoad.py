@@ -1,49 +1,51 @@
-# Импорт библиотек
+# Importing Libraries
 import cv2
 import os
 from cv2 import cv2
 from pylab import *
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Класс для работы с базой данных изображений
+# Class for working with the image database
 class PICLOAD():
-    # Инициализация класса
+    # Class initialization
     def __init__(self):
         pass
 
-    # Функция возврата изображений через генератор
+    # Function of returning images through the generator
     def l_files(self, basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp"), contains = None):
-        # Проход по структуре коталогов
+        # Walk through the structure of the catalogs
         for (rootDir, dirNames, filenames) in os.walk(basePath):
-            # Перебор имен файлов текущего каталога
+            # Loop through the filenames of the current directory
             for filename in filenames:
                 if contains is not None and filename.find(contains) == -1:
                     continue
-                #  Определияем расширение текущего файла
+                # Determine the extension of the current file
                 ext = filename[filename.rfind("."):].lower()
 
-                # Проверка на изображение и обработку
+                # Image check and processing
                 if ext.endswith(validExts):
-                    # Возвращение изображения через генератор
+                    # Returning an image through the generator
                     imagePath = os.path.join(rootDir, filename).replace(" ", "\\ ")
                     yield imagePath
 
-    # Возвращаем набор файлов директории и поддиректорий    
+    # Returning an image # Returning a set of directory and subdirectory files via the generator  
     def l_images(self, basePath, contains=None):
         return self.l_files(basePath, validExts = (".jpg", ".jpeg", ".png", ".bmp"), contains = contains)
 
-    # Функция загрузки изображений          
+    # Image upload function        
     def load_img(self, basePath, img_size):
         images = []
         basePath = list(self.l_images(basePath))
         for path in basePath:
             if not('OSX' in path):
                 path = path.replace('\\','/')
-                image = cv2.imread(path) # Считывание изображений
-                image = cv2.resize(image, img_size) # Изменение расширения изображений
+                image = cv2.imread(path) 
+                image = cv2.resize(image, img_size)
                 images.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         return images 
     
-    # Функция отображения картинок в ряд
+    # The function of displaying pictures in a row
     def show_imeges(self, img):
         _,ax = plt.subplots(1, 3, figsize = (10, 30)) 
         for i in range(3):
